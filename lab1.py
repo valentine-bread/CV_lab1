@@ -1,3 +1,4 @@
+from turtle import Screen
 from PyQt5 import QtCore, QtGui, QtWidgets
 import cv2, time
 import numpy as np
@@ -174,7 +175,7 @@ class Ui_MainWindow(object):
         self.comboBox.addItem('Numba_2d')
         self.pushButton_1.clicked.connect(self.get_org_img)
         self.pushButton_2.clicked.connect(self.get_red_img)
-        self.img_cv = cv2.imread('img/3.png')   
+        self.img_cv = cv2.imread('img/4.png')   
         self.images.setPixmap(conv_cv_to_qpixmap(self.img_cv))  
         self.spinBox.setSingleStep(2)
         GaussianBlur_numba_2d(self.img_cv, 1, 1)
@@ -199,10 +200,12 @@ class Ui_MainWindow(object):
                 self.images.setPixmap(conv_cv_to_qpixmap(GaussianBlur(self.img_cv, karel_size, sigma)))
             elif self.comboBox.currentText() == 'Numba':
                 self.images.setPixmap(conv_cv_to_qpixmap(GaussianBlur_numba(self.img_cv, karel_size, sigma)))
+                # cv2.imwrite( "screen\\5.png", GaussianBlur_numba(self.img_cv, karel_size, sigma))  
             else: 
                 self.images.setPixmap(conv_cv_to_qpixmap(GaussianBlur_numba_2d(self.img_cv, karel_size, sigma)))
                 # self.images.setPixmap(conv_cv_to_qpixmap(cv2.filter2D(self.img_cv, -1, gen_gaussian_kernel_numba_2d(karel_size, sigma))))
-            self.statusbar.showMessage("--- %s seconds ---" % (time.time() - start_time))     
+            self.statusbar.showMessage("--- %s seconds ---" % (time.time() - start_time))   
+              
     
                         
 if __name__ == "__main__":
