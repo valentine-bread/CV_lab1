@@ -104,9 +104,6 @@ def GaussianBlur_numba_2d(img_cv, kernel_size, sigma):
     img = img_cv.copy()
     kernelRadius = int((kernel_size - 1) / 2)
     karnel = gen_gaussian_kernel_numba_2d(kernel_size, sigma)
-    # print(karnel)
-    # karnel = cv2.getGaussianKernel(kernel_size, 1))
-    # karnel = np.array([0,0,0,0,0,1,0,0,0,0,0])
     height, width, channel = img.shape
     for channel_i in prange(channel):
         for width_i in range(width):
@@ -175,15 +172,11 @@ class Ui_MainWindow(object):
         self.comboBox.addItem('Numba_2d')
         self.pushButton_1.clicked.connect(self.get_org_img)
         self.pushButton_2.clicked.connect(self.get_red_img)
-        self.img_cv = cv2.imread('img/4.png')   
+        self.img_cv = cv2.imread('img/2.png')   
         self.images.setPixmap(conv_cv_to_qpixmap(self.img_cv))  
         self.spinBox.setSingleStep(2)
         GaussianBlur_numba_2d(self.img_cv, 1, 1)
         GaussianBlur_numba(self.img_cv, 1, 1)
-        # GaussianBlur_numba(self.img_cv, 1, 1)
-        # print(cv2.getGaussianKernel(5, 0))
-        # print(gen_gaussian_kernel(5, 0))
-        # print(gen_gaussian_kernel_numba_2d(5, 0))
         
     def get_org_img(self):     
         self.images.setPixmap(conv_cv_to_qpixmap(self.img_cv))  
